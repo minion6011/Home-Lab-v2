@@ -199,6 +199,7 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('play', () => {audio.play(); changePlayerStatus("stop")});  
       navigator.mediaSession.setActionHandler('pause', () => {audio.pause(); changePlayerStatus("play")});
 
+      navigator.mediaSession.setActionHandler('previoustrack', () => {if (audio.currentTime > 0) {audio.currentTime = 0}})
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextRandom()});
   } 
 }
