@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homelab Home</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}">
+        <script src="{{ url_for('static',filename='main.js') }}" type="text/javascript" defer></script>
+    </head>
+
+    <body>
+        <div class="navbar_main">
+            <div class="navbar_stats">
+                
+                <div class="stats_card">
+                    <div class="stats_info">
+                        <div class="stats_text">
+                            <p id="stats_cpu_text">80%</p>
+                            <p>CPU</p>
+                        </div>
+                        <div class="progress_bar">
+                            <div class="bar" id="stats_cpu"></div>
+                        </div>
+                    </div>
+                    <img src="{{ url_for('static',filename='img/cpu.png') }}" class="stats_image">
+                </div>
+
+                <div class="stats_card">
+                    <div class="stats_info">
+                        <div class="stats_text">
+                            <p id="stats_ram_text">80%</p>
+                            <p>RAM</p>
+                        </div>
+                        <div class="progress_bar">
+                            <div class="bar" id="stats_ram"></div>
+                        </div>
+                    </div>
+                    <img src="{{ url_for('static',filename='img/ram.png') }}" class="stats_image">
+                </div>
+        
+                <div class="stats_card">
+                    <div class="stats_info">
+                        <div class="stats_text">
+                            <p id="stats_disk1_text">80%</p>
+                            <p>DISK</p>
+                        </div>
+                        <div class="progress_bar">
+                            <div class="bar" id="stats_disk1"></div>
+                        </div>
+                    </div>
+                    <img src="{{ url_for('static',filename='img/hhd.png') }}" class="stats_image">
+                </div>
+            </div>
+
+            <div class="navbar_buttons">
+                <button onclick="OpenPage('music')" class="navbar_button"><img src="{{ url_for('static',filename='img/music.png') }}" class="navbar_button-image"></button>
+                <button onclick="OpenPage('custom')" class="navbar_button"><img src="{{ url_for('static',filename='img/question.png') }}" class="navbar_button-image"></button>
+                <button onclick="OpenPage('cloud')" class="navbar_button"><img src="{{ url_for('static',filename='img/cloud.png') }}" class="navbar_button-image"></button>
+                <button onclick="OpenPage('ai')" class="navbar_button"><img src="{{ url_for('static',filename='img/ai.png') }}" class="navbar_button-image"></button>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="card_slider">
+            <div class="card_container">
+                <h1 class="card-title">Periferiche</h1>
+                <div class="card">
+                    <h2 class="card-subtitle">Cloud SSD Stats</h2>
+
+                    <div class="stats_card_ext">
+                        <div class="stats_info" style="margin-top: 0.5%">
+                            <div class="stats_text">
+                                <p id="stats_disk2_text">80%</p>
+                                <p>SSD</p>
+                            </div>
+                            <div class="progress_bar">
+                                <div class="bar" id="stats_disk2"></div>
+                            </div>
+                        </div>
+                        <img src="{{ url_for('static',filename='img/hhd.png') }}" class="stats_image">
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card_content">
+                        <div>
+                            <h2 class="card-subtitle">ESP32 Stats</h2>
+
+                            <div class="esp32-stats-container">
+                                <div class="esp32-stats">
+                                    <img src="{{ url_for('static',filename='img/temp.png') }}" class="esp32_image">
+                                    <p id="esp32_tem">00°C</p>
+                                </div>
+
+                                <div class="esp32-stats">
+                                    <img src="{{ url_for('static',filename='img/umid.png') }}" class="esp32_image">
+                                    <p id="esp32_hum">00%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="{{ url_for('static',filename='img/esp32.png') }}" class="card_logo">
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card_container">
+                
+                <h1 class="card-title">Management</h1>
+
+                <div class="card">
+                    <div class="card_content">
+                            <h2 class="card-subtitle">Remote <br> CMD</h2>
+                        <img src="{{ url_for('static',filename='img/cmd.png') }}" class="card_logo">
+                    </div>
+                    <p class="cmd_text">Command</p>
+                    <input type="text" id="cmd_input" class="cmd_input" placeholder="sudo reboot" onkeydown="if (event.key === 'Enter') {SendCommand()}">
+                </div>
+
+
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card-subtitle">Homelab <br> Shutdown</h2>
+                        <button class="shutdown-button" onclick="shutdown(this)">Shutdown</button>
+                        <img src="{{ url_for('static',filename='img/power.png') }}" class="card_logo">
+                    </div>
+                </div>
+    
+            </div>
+            
+
+
+
+            <div class="card_container">
+                <h1 class="card-title">Addons</h1>
+
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card-subtitle" style="font-size: 1.6rem;">Api Tool</h2>
+                        <img src="{{ url_for('static',filename='img/api.png') }}" class="card_logo">
+                    </div>
+
+                    <div class="link_container">
+                        <input type="text" class="api_http-input" placeholder="https://..." id="req_url">
+                        <select class="api_request-select" id="req_type">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="PATCH">PATCH</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="OPTIONS">OPTIONS</option>
+                            <option value="HEAD">HEAD</option>
+                        </select>
+                    </div>
+                    <p class="api-title">JSON</p>
+                    <textarea style="padding: 2.5%; width: 95%" rows="4" class="api_http-input" placeholder='{"value": ...}' id="req_json"></textarea>
+                    <p class="api-title">Headers</p>
+                    <textarea type="text" style="padding: 2.5%; width: 95%" rows="3" class="api_http-input" placeholder='{"Content-Type": "application/json"}' id="req_header">{"Content-Type": "application/json"}</textarea>
+                    <button class="shutdown-button" style="margin: 2% 45% 0;" onclick="send_request()">Send</button>
+                </div>
+
+            </div>
+        </div>
+
+        
+        <div class="pop-up_container" id="iframe_container">
+            <h1 style="margin: 0 0 1.5% 1%" class="card-title" id="iframe_title">App Name</h1>
+            <iframe class="pop-up_frame" src="" id="iframe_element"></iframe>
+        </div>
+
+        <br>
+
+        <div class="popup" id="api-popup">
+            <div class="popup-frame">
+                <p class="popup-close" onclick="close_popup()">&#x2715;</p>
+                <p class="popup-title">Request Response</p>
+                <p id="api-response" class="api-code">Test</p>
+            </div>
+        </div>
+
+    </body>
+</html>

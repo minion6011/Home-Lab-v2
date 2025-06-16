@@ -1,0 +1,143 @@
+:root {
+    --background_gradient: linear-gradient(270deg,rgba(17, 203, 245, 1) 0%, rgba(79, 111, 161, 1) 27%, rgba(91, 10, 171, 1) 58%, rgba(6, 109, 199, 1) 100%);
+    --background_color: #0240eb;
+
+    --element1_color: #ececec;
+    --element2_color: #dbdbdb;
+    --element3_Gcolor: linear-gradient(270deg,rgba(17, 203, 245, 1) 0%, rgba(6, 109, 199, 1) 100%);
+    --element3_color: rgba(6, 109, 199, 1);
+
+    --text1_color: #000000;
+    --text2_color: #ffffff;
+
+    --font_family: Arial, sans-serif;
+    --title_fontsize: 2.2rem;
+    --medium_fontsize: 1.8rem;
+    --normal_fontsize: 1.1rem;
+    --mini_fontsize: 0.9rem
+}
+
+
+@media (max-width: 1003px) { /* Schermo Telefono */
+    :root {
+        --title_fontsize: 2.4rem;
+        --medium_fontsize: 2.0rem;
+        --normal_fontsize: 1.45rem;
+        --mini_fontsize: 1.1rem
+    }
+    .login-card { width: 70%; }
+    .cloud-card-files { width: 90%; }
+    .cloud-container { row-gap: 2.5%; }
+    .cloud-bar { padding: 1%; }
+    .cloud-bar-ico_button-img {
+        width: 47px;
+        height: 47px;
+    }
+    .cloud-bar-ico_button {
+        height: 65px;
+        width: 65px;
+    }
+    .cloud-file_line {
+        padding: 2%;
+        margin: 0.5% 0.5% 2% 0.5%
+    }
+    .cloud-bar_options { margin-right: 13.5%; }
+}
+
+@media (min-width: 1003px) { /* Schermo PC */
+    .login-card { width: 27.5%; }
+    .cloud-card-files { width: max-content; }
+    .cloud-container { row-gap: 5.5%; }
+    .cloud-bar { padding: 0.5%; }
+    .cloud-bar-ico_button-img {
+        width: 27px;
+        height: 27px;
+    }
+    .cloud-bar-ico_button {
+        height: 45px;
+        width: 45px;
+    }
+    .cloud-file_line { 
+        padding: 1%; 
+        margin: 0.5% 0.5% 1% 0.5%
+    }
+    .cloud-bar_options { margin-right: 7.5%; }
+
+}
+
+html {
+    background-image: var(--background_gradient);
+    background-color: var(--background_color);
+    height: 100%;
+    width: 100%;
+    display: grid;
+    margin: 0;
+
+    font-size: var(--normal_fontsize);
+    font-family: var(--font_family);
+    color: var(--text1_color);
+}
+
+.login-card-container {
+    /* display: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.login-card {
+    /* height: 52.5%; */
+    background-color: var(--element1_color);
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.3); /* Ombra leggera per un effetto 3D */
+}
+.title-password {
+    font-size: var(--title_fontsize);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5.25%;
+}
+.text-password {
+    margin-top: 0;
+    font-size: var(--medium_fontsize);
+    font-weight: bold;
+    text-align: start;
+    margin-left: 8%;
+    margin-bottom: 2%;
+}
+.input-password {
+    background-color: var(--element2_color);
+    font-size: var(--normal_fontsize);
+    margin-left: 11%;
+    border: none;
+    border-radius: 10px;
+    padding: 2.5%;
+    margin-bottom: 7.5%;
+    width: 72.5%;
+}
+.response-password {
+    font-size: var(--normal_fontsize);
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    color: #ec2001;
+}
+.button-password {
+    text-align: center;
+    margin: 0 auto 7.5%;
+    font-size: calc(var(--medium_fontsize) - 0.5rem);
+
+    width: max-content;
+    border: none;
+    border-radius: 10px;
+    padding: 2.75%;
+    background-image: var(--element3_Gcolor);
+    background-color: var(--element3_color);
+    color: var(--text2_color);
+
+    transition: transform .2s;
+    cursor: pointer;
+}
+.button-password:hover {
+    transform: scale(1.1);
+}

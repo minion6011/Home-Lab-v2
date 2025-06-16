@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cloud Panel</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static',filename='user_panel.css') }}">
+        <script src="{{ url_for('static',filename='user_panel.js') }}" type="text/javascript" defer></script>
+    </head>
+
+    <body>
+        <input id="global_username" type="hidden" name="username" value="{{ username }}"/>
+        <input id="global_password" type="hidden" name="password" value="{{ password }}"/>
+
+        <input id="global_home-path" type="hidden" name="home_path" value="{{ global_path }}"/>
+        <input id="global_current-path" type="hidden" name="home_path" value="{{ current_path }}"/>
+        <input id="global_back-path" type="hidden" name="home_path" value="{{ back_path }}"/>
+
+        <div class="cloud-container" id="cloud-container">
+            <div class="cloud-bar">
+                <p style="margin: 0 0 0 0.75%;">Bentornato/a!</p>
+                <div class="cloud-bar_options">
+                    {% if current_path != global_path %}
+                        <div onclick="home_page()" class="cloud-bar-ico_button" style="background-color: #06d6a0;"> <img src="{{ url_for('static',filename='img/home.png') }}" class="cloud-bar-ico_button-img"> </div>
+                        <div onclick="back_page()" class="cloud-bar-ico_button" style="background-color: #4361ee;"> <img src="{{ url_for('static',filename='img/back.png') }}" class="cloud-bar-ico_button-img"> </div>
+                    {% endif %}
+                    <div onclick="create_folder()" class="cloud-bar-ico_button" style="background-color: #ffbe0b;"> <img src="{{ url_for('static',filename='img/plus.png') }}" class="cloud-bar-ico_button-img"> </div>
+                    <input type="file" id="fileInput" style="display: none;" multiple>
+                    <div id="uploadButton" class="cloud-bar-ico_button" style="background-color: #fb8b24;"> <img src="{{ url_for('static',filename='img/upload.png') }}" class="cloud-bar-ico_button-img"> </div>
+                    <div onclick="window.location='/login'" class="cloud-bar-ico_button" style="background-color: #ef233c;"> <img src="{{ url_for('static',filename='img/logout.png') }}" class="cloud-bar-ico_button-img"> </div>
+                </div>
+            </div>
+
+            <div class="cloud-card-files" id="file-container">
+
+                {% for file in files %}
+                    <div class="cloud-file_line">
+                        <p style="margin: 0 0 0 0.75%; font-size: calc(var(--normal_fontsize) + 0.25rem); max-width: 60%;">{{ file['emoji'] }} {{ file['name'] }}</p>
+                        <div class="cloud-bar_options-menu">
+                            <div onclick="delete_file(this)" class="cloud-bar-ico_button" style="background-color: #ff1e34;"> <img src="{{ url_for('static',filename='img/bin.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            <div onclick="rename_file(this)" class="cloud-bar-ico_button" style="background-color: #8ac926;"> <img src="{{ url_for('static',filename='img/rename.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            
+                            {% if file['type'] == 'folder' %}
+                                <div onclick="open_folder(this)" class="cloud-bar-ico_button" style="background-color: #4cc9f0;"> <img src="{{ url_for('static',filename='img/darrow.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            {% else %}
+                                <div onclick="download_file(this)" class="cloud-bar-ico_button" style="background-color: #0496ff;"> <img src="{{ url_for('static',filename='img/download.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            {% endif %}
+
+                            {% if file['type'] == 'img' %}
+                                <div onclick="show_file(this, 'img')" class="cloud-bar-ico_button" style="background-color: #72ddf7;"> <img src="{{ url_for('static',filename='img/eye.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            {% elif file['type'] == 'video' %}
+                                <div onclick="show_file(this, 'video')" class="cloud-bar-ico_button" style="background-color: #72ddf7;"> <img src="{{ url_for('static',filename='img/eye.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            {% endif %}
+
+                            {% if file['type'] == 'edit' %}
+                                <div onclick="show_file(this, 'edit')" class="cloud-bar-ico_button" style="background-color: #ecb520;"> <img src="{{ url_for('static',filename='img/edit.png') }}" class="cloud-bar-ico_button-img"> </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        
+        <div class="popup_rename" id="rename-popup">
+            <div class="popup-frame_rename">
+                <p class="popup-close_rename" onclick="close_popup_rename()">&#x2715;</p>
+                <p class="popup-title_rename">Rinomina</p>
+                <p class="popup-file_rename" id="filename_rename">test.jpg</p>
+                <input type="text" class="input-text_rename" placeholder="test.jpg" id="placeholder_rename" onkeydown="if (event.key === 'Enter') {rename_file_api(this);}">
+            </div>
+        </div>
+
+        <div class="popup_loading" id="loading-popup">
+            <div class="popup-frame_loading">
+                <p class="popup-close_loading" onclick="close_popup_loading()">&#x2715;</p>
+                <p class="popup-title_loading">Loading</p>
+                <p id="statusText" class="popup-loading_text">Nessun file caricato</p>
+            </div>
+        </div>
+
+        <div class="popup_show" id="show-popup">
+            <div class="popup-frame_show">
+                <p class="popup-close_show" onclick="close_show_loading()">&#x2715;</p>
+                <div style="display: flex; align-items: center;margin-bottom: 2.5%;justify-content:center">
+                    <img class="popup-show-img" id="show-img">
+                    <video class="popup-show-video" id="show-vid" controls></video>
+                    <pre class="popup-show-code" id="show-text"></pre>
+                </p>
+            </div>
+        </div>
+
+    </body>
+</html>
