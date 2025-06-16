@@ -64,6 +64,7 @@ function changePlayerStatus(type) {
 
 let audio = new Audio();
 
+
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
     range.value = audio.currentTime;
@@ -138,7 +139,7 @@ async function playSong(title, img) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({type: 'get', song_name: title}),
   });
-   if (req.status == 200) {
+  if (req.status == 200) {
     
     let blob = await req.blob();
     
@@ -164,8 +165,24 @@ async function playSong(title, img) {
 
     setPWA(title, audio, img)
     changePlayerStatus("stop")
-   }
- }
+  }
+}
+
+audio.addEventListener('ended', () => {
+  nextRandom()
+});
+
+async function nextRandom() {
+  let req = await fetch(`/music_api`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({type: 'random'}),
+  });
+  if (req.status == 200) {
+    let req_json = JSON.parse(await req.text());
+    playSong(req_json.song_name, req_json.ico)
+  }
+}
 
 
 async function setPWA(title, audio, img) {
@@ -182,6 +199,6 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('play', () => {audio.play(); changePlayerStatus("stop")});  
       navigator.mediaSession.setActionHandler('pause', () => {audio.pause(); changePlayerStatus("play")});
 
-      // navigator.mediaSession.setActionHandler('nexttrack', () => {audio.pause(); changePlayerStatus("play")});
+      navigator.mediaSession.setActionHandler('nexttrack', () => {nextRandom()});
   } 
 }
