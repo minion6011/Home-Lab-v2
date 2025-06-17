@@ -1,4 +1,5 @@
 pytubefix
 flask
+Flask-CORS
 psutil
 gpiozero
