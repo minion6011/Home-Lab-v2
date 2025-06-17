@@ -10,7 +10,7 @@ import dht
 GPIO_Pin = 25
 
 Wifi_Data = [
-    {"SSID":"WINDTRE-749D25", "Password": "2dy7ma6rdskrtfh6"},
+    {"SSID":"", "Password": ""},
     ]
 
 
