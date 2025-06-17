@@ -21,6 +21,9 @@ function updateBackground(){
 updateBackground();
 
 
+let reuseDict = {}
+
+
 // Function
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -75,7 +78,6 @@ audio.addEventListener('timeupdate', () => {
 
 
 // Main code
-
 
 async function downloadNew(element) {
   let url = element.value
@@ -133,17 +135,7 @@ async function rangeSong(new_value) {
   }
 }
 
-async function playSong(title, img) {
-  let req = await fetch(`/music_api`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({type: 'get', song_name: title}),
-  });
-  if (req.status == 200) {
-    
-    let blob = await req.blob();
-    
-    audio.src = URL.createObjectURL(blob);
+async function playAudio(title, img) {
     audio.preload = "auto";
 
     if (range.disabled) {
@@ -165,6 +157,27 @@ async function playSong(title, img) {
 
     setPWA(title, audio, img)
     changePlayerStatus("stop")
+}
+
+async function playSong(title, img) {
+  if (title in reuseDict) {
+    audio.src = reuseDict[title]
+    playAudio(title, img)
+  }
+  else {
+    let req = await fetch(`/music_api`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({type: 'get', song_name: title}),
+    });
+    if (req.status == 200) {
+      
+      let blob = await req.blob();
+      let url_blob = URL.createObjectURL(blob);
+      audio.src = url_blob
+      reuseDict[title] = url_blob
+      playAudio(title, img)
+    }
   }
 }
 
