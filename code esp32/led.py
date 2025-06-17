@@ -5,7 +5,7 @@ import time
 
 temperature_url = "http://209.25.141.16:3164/esp_stats"
 Wifi_Data = [
-    {"SSID":"WINDTRE-749D25", "Password": "2dy7ma6rdskrtfh6"},
+    {"SSID":"", "Password": ""},
     ]
 
 
