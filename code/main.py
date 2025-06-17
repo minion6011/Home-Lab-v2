@@ -1,5 +1,6 @@
 # - Imports
 from flask import Flask, render_template, request, redirect, send_from_directory, send_file
+from flask_cors import CORS
 from markupsafe import Markup
 import platform # Per riconoscere il sistema operativo
 import psutil
@@ -11,6 +12,7 @@ import shutil
 from api import CloudAPI, MusicApi
 
 app = Flask(__name__, static_folder="website", template_folder="website")
+CORS(app)
 
 global esp32_data
 esp32_data = {"temperature": "??", "humidity":"??"}
