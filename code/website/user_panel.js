@@ -272,8 +272,6 @@ fileInput.addEventListener('change', () => {
       for (let i = 0; i < files.length; i++) {
         create_line(files[i].name);
       }
-    } else if (xhr.status === 409) {
-      statusText.textContent = 'Uno o più file già esistenti';
     } else {
       statusText.textContent = 'Errore durante l\'upload.';
     }
