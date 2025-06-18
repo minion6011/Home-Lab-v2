@@ -20,6 +20,7 @@ class CloudAPI():
 	def login_check(user_name, password):
 		if user_name in data_users and password == data_users[user_name]["password"]:
 			return {"status":True, "path": data_users[user_name]["path"]}
+		return {"status":False}
 	def get_files(user_name, password, path):
 		# - Internal Function
 		def type_file(filename, req_type):
