@@ -1,5 +1,5 @@
 # ❓ What is this
-This is the second version of the [Homelab](https://github.com/minion6011/Home-Lab)
+This is the second version of the [Homelab](https://github.com/minion6011/Home-Lab) <br>
 The HomeLab aims to be a website that works in localhost and that allows you to do various things through its sections:
 - **Home** <br>
 Allows you to turn off or restart the site, view system information, execute commands, get details about the ESP32 integration, send and receive requests, and access all other pages of the website.
