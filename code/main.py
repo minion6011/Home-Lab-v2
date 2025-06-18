@@ -90,10 +90,9 @@ def cloud():
 
 			data = CloudAPI.login_check(user_name, password)
 
-			if path == "None": path = data["path"]
-			if back_path == "None": back_path = data["path"]
-
 			if data["status"]:
+				if path == "None": path = data["path"]
+				if back_path == "None": back_path = data["path"]
 				return render_template("user_panel.html", files=CloudAPI.get_files(user_name, password, path), current_path=path, global_path=data["path"], back_path=back_path, username=user_name, password=password)
 			else:
 				return redirect("/login/fail")
