@@ -243,42 +243,49 @@ uploadButton.addEventListener('click', () => {
 });
 
 fileInput.addEventListener('change', () => {
-  const file = fileInput.files[0];
-  if (!file) return;
+  const files = fileInput.files;
+  if (!files.length) return;
 
   const formData = new FormData();
   formData.append('type', "file_upload");
   formData.append('username', username);
   formData.append('password', password);
-
   formData.append('path', path);
-  formData.append('file', file);
 
-  uploadPopup.style.display = "flex"
+  // Aggiungi tutti i file
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+
+  uploadPopup.style.display = "flex";
+
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/cloud_api', true);
+
   xhr.upload.onprogress = (event) => {
     if (event.lengthComputable) {
-
       const percent = Math.round((event.loaded / event.total) * 100);
       statusText.textContent = `${percent}%`;
     }
   };
+
   xhr.onload = () => {
     if (xhr.status === 200) {
       statusText.textContent = 'Caricamento completato!';
-      create_line(file.name)
-    }
-    else if (xhr.status === 409) {
-      statusText.textContent = 'File già esistente';
-    } 
-    else {
+      for (let i = 0; i < files.length; i++) {
+        create_line(files[i].name);
+      }
+    } else if (xhr.status === 409) {
+      statusText.textContent = 'Uno o più file già esistenti';
+    } else {
       statusText.textContent = 'Errore durante l\'upload.';
     }
   };
+
   xhr.onerror = () => {
     statusText.textContent = 'Errore di rete.';
   };
+
   xhr.send(formData);
   statusText.textContent = 'Caricamento in corso...';
 });
