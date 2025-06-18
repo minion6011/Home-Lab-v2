@@ -1,7 +1,4 @@
 function post_emulate(path, params, method='post') {
-
-  // The rest of this code assumes you are not using a library.
-  // It can be made less verbose if you use one.
   const form = document.createElement('form');
   form.method = method;
   form.action = path;
