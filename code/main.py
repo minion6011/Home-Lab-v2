@@ -130,15 +130,13 @@ def api_cloud():
 		data = CloudAPI.login_check(request.form["username"], request.form["password"])
 		if data["status"]:
 			if request.form["type"] == "file_upload" and "path" in request.form:
-				file = request.files.get('file')
-				if file:
-					if not file.filename in os.listdir(request.form["path"]):
-						file.save(os.path.join(request.form["path"], file.filename))
-						return "Success", 200
-					else:
-						return "Already Exixsting File", 409
-				else:
-					return "No file", 400
+				files = request.files.getlist('files')
+				for file in files:
+					if file:
+						if not file.filename in os.listdir(request.form["path"]):
+							file.save(os.path.join(request.form["path"], file.filename))
+				return "Success", 200
+			
 			elif request.form["type"] == "file_download" and "path" in request.form:
 				return send_from_directory(request.form["path"], request.form["filename"], as_attachment=True), 200
 	return "Error", 400
