@@ -14,7 +14,7 @@ Wifi_Data = [
     ]
 
 
-temperature_url = "http://209.25.141.16:3164/esp_stats"
+temperature_url = "http://127.0.0.1:3164/esp_stats"
 time_url = "https://timeapi.io/api/time/current/zone?timeZone=Europe%2FRome"
 # - Code
 
