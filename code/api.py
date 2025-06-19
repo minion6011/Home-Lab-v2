@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 # - Music
 import pytubefix
 from pytubefix.cli import on_progress
@@ -36,18 +37,23 @@ class CloudAPI():
 				elif not "." in filename: return "📁"
 				else: return "📄"
 		def files_dict(path):
+			def custom_key(s):
+				match = re.match(r'([a-zA-Z]+)(\d*)', s)
+				text_part = match.group(1).lower()
+				num_part = int(match.group(2)) if match.group(2) else -1
+				return (text_part, num_part, s)
 			files = []
 			for file in os.listdir(path):
-					file_dict = {}
-					file_dict["name"] = file
-					file_dict["type"] = type_file(file, "type")
-					file_dict["emoji"] = type_file(file, "emoji")
-					files.append(file_dict)
-			return files
+				file_dict = {}
+				file_dict["name"] = file
+				file_dict["type"] = type_file(file, "type")
+				file_dict["emoji"] = type_file(file, "emoji")
+				files.append(file_dict)
+			return sorted(files, key=custom_key)
 		# - Main code
 		if user_name in data_users and password in data_users[user_name]["password"]:
 			#path = data_users[user_name]["path"]
-			return files_dict(path)
+			return sorted(files_dict(path))
 
 
 
