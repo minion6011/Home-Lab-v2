@@ -49,7 +49,7 @@ class CloudAPI():
 				file_dict["type"] = type_file(file, "type")
 				file_dict["emoji"] = type_file(file, "emoji")
 				files.append(file_dict)
-			return sorted(files, key=custom_key)
+			return sorted(files, key=lambda file: custom_key(file["name"]))
 		# - Main code
 		if user_name in data_users and password in data_users[user_name]["password"]:
 			#path = data_users[user_name]["path"]
