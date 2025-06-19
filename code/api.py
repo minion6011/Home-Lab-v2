@@ -53,7 +53,7 @@ class CloudAPI():
 		# - Main code
 		if user_name in data_users and password in data_users[user_name]["password"]:
 			#path = data_users[user_name]["path"]
-			return sorted(files_dict(path))
+			return files_dict(path)
 
 
 
