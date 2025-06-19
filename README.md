@@ -9,8 +9,12 @@ Allows you to download music from YouTube and play it on the site like Spotify
   Similar to Google Drive; it allows you to upload files, edit them, rename them and create folders
 
 # Installation Guide
+<b>🍓 <a href="Guide_Raspbian.md">Raspbian</a> </b>
+<br>
+<b>🪟 <a href="Guide_Windows.md">Windows</a> </b>
+<br>
 
-### • Setup ESP32 integration - Thermometer
+## • Setup ESP32 integration - Thermometer
 Required components: 
 - ESP32
 - DHT11/DHT22 (the circuit was made to use a DHT11)
@@ -19,10 +23,9 @@ Required components:
 - Jumper Wires
   
 <img width="100%" src="ESP32_Thermometer.png"/>
-<hr>
 <br>
 
-### • Setup ESP32 integration - Thermometer Lights
+## • Setup ESP32 integration - Thermometer Lights
 Required components: 
 - ESP32
 - 3 Leds (Colors: Red, Yellow, Green)
@@ -32,11 +35,9 @@ Required components:
 <hr>
 <br>
 
-
-
 After creating the circuit as in the photo, you need to install MicroPython on the ESP32; I suggest using [this guide](https://docs.sunfounder.com/projects/esp32-starter-kit/en/latest/micropython/python_start/install_micropython.html).
 <br><br>
-Add the code present in the `code esp32` folder inside the ESP32 files depending on which Integration you are making use folders `x` and `y`
+Add the code present in the `code esp32` folder inside the ESP32 files, depending on which Integration you are making use folders `ESP32_Thermometer` or `ESP32_Lights`
 <br><br>
 Edit the `boot.py` file and add the Wi-Fi SSID and password to the dictionary and the Homelab ip
 
