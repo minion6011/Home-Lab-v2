@@ -308,7 +308,7 @@ html {
 }
 
 .popup-show-img {
-    width: 80%;
+    max-width: 90%;
     display: none;
     margin: auto;
     border-radius: 2.5px;
@@ -316,11 +316,12 @@ html {
     width: auto;
 }
 .popup-show-video {
-    width: 80%;
+    max-width: 90%;
     display: none;
     margin: auto;
     border-radius: 2.5px;
     max-height: 650px;
+    width: auto;
 }
 .popup-show-code {
     display: none;
