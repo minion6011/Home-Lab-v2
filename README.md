@@ -10,7 +10,6 @@ Allows you to download music from YouTube and play it on the site like Spotify
 
 # Installation Guide
 
-
 ### • Setup ESP32 integration - Thermometer
 Required components: 
 - ESP32
@@ -18,15 +17,26 @@ Required components:
 - LCD 16x2 (I2C)
 - 10KΩ resistor
 - Jumper Wires
-
+  
+<img width="100%" src="ESP32_Thermometer.png"/>
+<hr>
 <br>
 
-First you need to connect the wires like in this circuit:
-<img width="100%" src="ESP32_Circuit.png"/>
+### • Setup ESP32 integration - Thermometer Lights
+Required components: 
+- ESP32
+- 3 Leds (Colors: Red, Yellow, Green)
+- Jumper Wires
 
-After that, you need to install MicroPython on the ESP32; I suggest using [this guide](https://docs.sunfounder.com/projects/esp32-starter-kit/en/latest/micropython/python_start/install_micropython.html).
+<img width="100%" src="ESP32_Lights.png"/>
+<hr>
+<br>
+
+
+
+After creating the circuit as in the photo, you need to install MicroPython on the ESP32; I suggest using [this guide](https://docs.sunfounder.com/projects/esp32-starter-kit/en/latest/micropython/python_start/install_micropython.html).
 <br><br>
-Add the code present in the `code esp32` folder inside the ESP32 files
+Add the code present in the `code esp32` folder inside the ESP32 files depending on which Integration you are making use folders `x` and `y`
 <br><br>
 Edit the `boot.py` file and add the Wi-Fi SSID and password to the dictionary and the Homelab ip
 
