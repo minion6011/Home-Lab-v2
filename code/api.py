@@ -37,13 +37,8 @@ class CloudAPI():
 				elif not "." in filename: return "📁"
 				else: return "📄"
 		def files_dict(path):
-			def custom_key(s):
-				match = re.match(r'([a-zA-Z]+)(\d*)', s)
-				text_part = match.group(1).lower()
-				num_part = int(match.group(2)) if match.group(2) else -1
-				return (text_part, num_part, s)
 			files = []
-			for file in sorted(os.listdir(path), key=custom_key):
+			for file in sorted(os.listdir(path), key=str.lower):
 				file_dict = {}
 				file_dict["name"] = file
 				file_dict["type"] = type_file(file, "type")
