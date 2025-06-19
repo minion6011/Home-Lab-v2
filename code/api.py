@@ -43,13 +43,13 @@ class CloudAPI():
 				num_part = int(match.group(2)) if match.group(2) else -1
 				return (text_part, num_part, s)
 			files = []
-			for file in os.listdir(path):
+			for file in sorted(os.listdir(path), key=custom_key):
 				file_dict = {}
 				file_dict["name"] = file
 				file_dict["type"] = type_file(file, "type")
 				file_dict["emoji"] = type_file(file, "emoji")
 				files.append(file_dict)
-			return sorted(files, key=lambda file: custom_key(file["name"]))
+			return files
 		# - Main code
 		if user_name in data_users and password in data_users[user_name]["password"]:
 			#path = data_users[user_name]["path"]
