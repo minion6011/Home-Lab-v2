@@ -3,7 +3,7 @@ import network
 import urequests as requests
 import time
 
-temperature_url = "http://209.25.141.16:3164/esp_stats"
+temperature_url = "http://127.0.0.1/esp_stats"
 Wifi_Data = [
     {"SSID":"", "Password": ""},
     ]
