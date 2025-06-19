@@ -319,6 +319,7 @@ html {
     display: none;
     margin: auto;
     border-radius: 2.5px;
+    max-height: 650px;
 }
 .popup-show-code {
     display: none;
