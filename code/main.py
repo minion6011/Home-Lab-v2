@@ -171,5 +171,5 @@ def api_music():
 				return {"song_name": song, "ico": data_song[song]["ico"]}, 200
 	return "Error", 400
 
-
-app.run(host="0.0.0.0", debug=False)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", debug=False)
