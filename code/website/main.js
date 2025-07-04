@@ -32,7 +32,7 @@ function OpenPage(element) {
     }
     else if (element == "ai") {
         iframe_name.textContent = "AI Chat";
-        iframe_element.src = "";
+        iframe_element.src = "/ai";
     }
 };
 
