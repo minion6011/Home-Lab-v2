@@ -32,7 +32,7 @@ function OpenPage(element) {
     }
     else if (element == "ai") {
         iframe_name.textContent = "AI Chat";
-        iframe_element.src = "http://ai.homelab-coso.playit.plus:18993/";
+        iframe_element.src = "";
     }
 };
 
