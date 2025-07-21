@@ -186,6 +186,7 @@ function rename_file(element) {
   rename_popup.style.display = "flex"
   rename_filetext.innerHTML = name
   rename_placeholder.placeholder = name
+  rename_placeholder.value = name
 }
 function close_popup_rename() {rename_popup.style.display = "none"}
 async function rename_file_api(element) {
