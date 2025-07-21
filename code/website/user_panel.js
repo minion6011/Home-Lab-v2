@@ -91,7 +91,7 @@ let home_path = document.getElementById("global_home-path").value;
 function line_value(element) {
   let container = element.closest('.cloud-file_line');
   let text = container.querySelector('p').innerHTML;
-  return text.replace(/^[^\p{L}\p{N}]+/u, "")
+  return decodeURI(text.replace(/^[^\p{L}\p{N}]+/u, ""))
 }
 
 
