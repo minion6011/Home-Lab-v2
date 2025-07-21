@@ -25,6 +25,12 @@ let reuseDict = {}
 
 
 // Function
+function decodeHtml(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  return doc.documentElement.textContent;
+}
+
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
@@ -96,13 +102,13 @@ async function downloadNew(element) {
 
 async function deleteSong() {
   (Array.from(document.querySelectorAll("p"))
-  .find(p => p.textContent.includes(player_songname.innerHTML)))
+  .find(p => p.textContent.includes(decodeHtml(player_songname.innerHTML))))
   .parentElement.style.display = "none";
 
   await fetch(`/music_api`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({type: 'remove', song_name: player_songname.innerHTML}),
+    body: JSON.stringify({type: 'remove', song_name: decodeHtml(player_songname.innerHTML)}),
   });
 }
 
