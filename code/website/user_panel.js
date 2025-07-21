@@ -18,6 +18,11 @@ function post_emulate(path, params, method='post') {
   form.submit();
 }
 
+function decodeHtml(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  return doc.documentElement.textContent;
+}
 
 
 const imgExt = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.webp', '.ico'];
@@ -91,7 +96,7 @@ let home_path = document.getElementById("global_home-path").value;
 function line_value(element) {
   let container = element.closest('.cloud-file_line');
   let text = container.querySelector('p').innerHTML;
-  return decodeURI(text.replace(/^[^\p{L}\p{N}]+/u, ""))
+  return decodeHtml(text.replace(/^[^\p{L}\p{N}]+/u, ""))
 }
 
 
