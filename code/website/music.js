@@ -1,3 +1,7 @@
+// Preload On start:
+const preloadOnStart = true
+
+// Code
 const range = document.getElementById('musicRange');
 
 const playButton = document.getElementById("play_button")
@@ -22,6 +26,27 @@ updateBackground();
 
 
 let reuseDict = {}
+
+// Function Preload
+async function preloadSongs() {
+    songList = document.getElementsByClassName("music-card-text");
+    for (var i = 0; i < songList.length; i++) {
+        let title = decodeHtml(songList[i].innerHTML)
+
+        let req = await fetch(`/music_api`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({type: 'get', song_name: title}),
+        });
+
+        if (req.status == 200) {
+            let blob = await req.blob();
+            let url_blob = URL.createObjectURL(blob);
+            reuseDict[title] = url_blob
+        }
+    }
+}
+if (preloadOnStart == true) {preloadSongs()}
 
 
 // Function
