@@ -81,7 +81,4 @@ class MusicApi():
 				json.dump(data_song, f, indent=4)
 			return "Success", 200
 		return "No file found", 404 # 404 - Not found
-	def random_song():
-		with open("music.json") as f:
-			data_song = json.load(f)
-		return random.choice(list(data_song.keys()))
+
