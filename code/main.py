@@ -164,11 +164,6 @@ def api_music():
 				if str(request.json["song_name"]) in data_song:
 					return send_file(data_song[str(request.json["song_name"])]["path"], mimetype='audio/mpeg'), 200
 				return "No file found", 404
-			elif request.json["type"] == "random":
-				with open("music.json") as f:
-					data_song = json.load(f)
-				song = MusicApi.random_song()
-				return {"song_name": song, "ico": data_song[song]["ico"]}, 200
 	return "Error", 400
 
 if __name__ == "__main__":
