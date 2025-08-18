@@ -104,6 +104,7 @@ audio.addEventListener('timeupdate', () => {
     range.value = audio.currentTime;
     timestamp_current.innerHTML = formatTime(audio.currentTime)
     updateBackground()
+    updatePositionState()
   }
 });
 
@@ -228,6 +229,15 @@ async function nextRandom() {
   }
 }
 
+function updatePositionState() {
+  if ('setPositionState' in navigator.mediaSession) {
+    navigator.mediaSession.setPositionState({
+      duration: audio.duration || 0,
+      playbackRate: audio.playbackRate || 1,
+      position: audio.currentTime || 0
+    });
+  }
+}
 
 async function setPWA(title, audio, img) {
   if ('mediaSession' in navigator) {
@@ -247,3 +257,4 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextRandom()});
   } 
 }
+
