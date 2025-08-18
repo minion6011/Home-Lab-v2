@@ -25,6 +25,24 @@ To use the HomeLab on Windows you need to follow these steps:
 7. Change the password and if you want the custom page for the index page from the file `code/website/main.js`
 
 8. Install Node.js from [here](https://nodejs.org/en/download)
+
+<hr>
+
+# How to install Discord RPC 🔊
+
+1. Install Python (I suggest `Python 3.11`)
+
+2. Install all the requirements using the command:
+   ```console
+   pip install -r requirements.txt
+   ```
+
+3. Open [Discord Developer Portal](https://discord.com/developers/applications) and create an App for the Homelab
+
+4. In the `Rich Presence` section add the `logo.jpeg`
+
+5. Run the main.py in background
+
 <hr>
 
 [Go back](README.md)
