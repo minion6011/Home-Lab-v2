@@ -4,7 +4,7 @@ from pypresence import Presence, ActivityType
 import time
 
 # Config
-client_id = '1406966722761850890'
+client_id = 'YOUR_CLIENT_ID'
 low_timeout = 1
 long_timeout = 14 # long_timeout + low_timeout must equal 15 or more seconds
 
