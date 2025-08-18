@@ -28,7 +28,7 @@ To use the HomeLab on Windows you need to follow these steps:
 
 <hr>
 
-# How to install Discord RPC 🔊
+# 🔊 How to install Discord RPC 
 
 1. Install Python (I suggest `Python 3.11`)
 
