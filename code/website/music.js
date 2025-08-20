@@ -1,11 +1,8 @@
-// Preload On start:
-const preloadOnStart = true
-
 // Code
 const range = document.getElementById('musicRange');
 
-const playButton = document.getElementById("play_button")
-const playButtonImg = document.getElementById("play_buttonImg")
+const playButton = document.getElementById("play_button");
+const playButtonImg = document.getElementById("play_buttonImg");
 
 const player_songname = document.getElementById('song-player-name');
 const player_songimg = document.getElementById('song-player-img');
@@ -13,11 +10,11 @@ const player_songimg = document.getElementById('song-player-img');
 const timestamp_max = document.getElementById('timestamp-max');
 const timestamp_current = document.getElementById('timestamp-current');
 
-const volumeImg = document.getElementById("musicImg")
-const volumeRange = document.getElementById("volumeRange")
+const volumeImg = document.getElementById("musicImg");
+const volumeRange = document.getElementById("volumeRange");
 
-const loopButton = document.getElementById("buttonLoop")
-const deleteButton = document.getElementById("buttonDelete")
+const loopButton = document.getElementById("buttonLoop");
+const deleteButton = document.getElementById("buttonDelete");
 
 function updateBackground(){
   range.style.setProperty('--percent', ((range.value / range.max) * 100) + '%');
@@ -27,26 +24,52 @@ updateBackground();
 
 let reuseDict = {}
 
+let preloadedInfo = []; // [title, ico]
+let preloading = false;
+
 // Function Preload
-async function preloadSongs() {
-    songList = document.getElementsByClassName("music-card-text");
-    for (var i = 0; i < songList.length; i++) {
-        let title = decodeHtml(songList[i].innerHTML)
+async function preloadSong() {
+  preloading = true;
+  
+  songList = document.getElementsByClassName("music-card-text");
+  let i = Math.floor(Math.random() * songList.length);
+  
+  let title = decodeHtml(songList[i].innerHTML)
+  let ico = songList[i].previousElementSibling.src;
 
-        let req = await fetch(`/music_api`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({type: 'get', song_name: title}),
-        });
+  let req = await fetch(`/music_api`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({type: 'get', song_name: title}),
+  });
 
-        if (req.status == 200) {
-            let blob = await req.blob();
-            let url_blob = URL.createObjectURL(blob);
-            reuseDict[title] = url_blob
-        }
-    }
+  if (req.status == 200) {
+      let blob = await req.blob();
+      let url_blob = URL.createObjectURL(blob);
+      preloadedInfo = [title, ico];
+      reuseDict[title] = url_blob
+  }
+  else {
+    console.error("Error preloading song:", req.status, await req.text());
+    preloading = false;
+    preloadedInfo = [];
+  }
 }
-if (preloadOnStart == true) {preloadSongs()}
+
+
+async function nextSong() {
+  if (preloadedInfo.length != 0) {
+    playSong(preloadedInfo[0], preloadedInfo[1]);
+    preloadedInfo = [];
+    preloading = false;
+  }
+  else {
+    let songList = document.getElementsByClassName("music-card-text");
+    let i = Math.floor(Math.random() * songList.length);
+    playSong(decodeHtml(songList[i].innerHTML), songList[i].previousElementSibling.src);
+  }
+}
+
 
 
 // Function
@@ -105,8 +128,13 @@ audio.addEventListener('timeupdate', () => {
     timestamp_current.innerHTML = formatTime(audio.currentTime)
     updateBackground()
     updatePositionState()
+
+    if (preloadedInfo.length == 0 && !preloading) {
+      preloadSong();
+    }
   }
 });
+
 
 
 // Main code
@@ -214,20 +242,8 @@ async function playSong(title, img) {
 }
 
 audio.addEventListener('ended', () => {
-  nextRandom()
+  nextSong()
 });
-
-async function nextRandom() {
-  let req = await fetch(`/music_api`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({type: 'random'}),
-  });
-  if (req.status == 200) {
-    let req_json = JSON.parse(await req.text());
-    playSong(req_json.song_name, req_json.ico)
-  }
-}
 
 function updatePositionState() {
   if ('setPositionState' in navigator.mediaSession) {
@@ -254,7 +270,7 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('pause', () => {audio.pause(); changePlayerStatus("play")});
 
       navigator.mediaSession.setActionHandler('previoustrack', () => {if (audio.currentTime > 0) {audio.currentTime = 0}})
-      navigator.mediaSession.setActionHandler('nexttrack', () => {nextRandom()});
+      navigator.mediaSession.setActionHandler('nexttrack', () => {nextSong()});
   } 
 }
 
