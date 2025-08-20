@@ -1,7 +1,7 @@
 import json
 import os
-import random
 import re
+import random
 # - Music
 import pytubefix
 from pytubefix.cli import on_progress
@@ -51,7 +51,6 @@ class CloudAPI():
 			return files_dict(path)
 
 
-
 class MusicApi():
 	def add_song(url: str):
 		with open("music.json") as f:
@@ -81,4 +80,7 @@ class MusicApi():
 				json.dump(data_song, f, indent=4)
 			return "Success", 200
 		return "No file found", 404 # 404 - Not found
-
+	def random_song():
+		with open("music.json") as f:
+			data_song = json.load(f)
+		return random.choice(list(data_song.keys()))
