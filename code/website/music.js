@@ -137,7 +137,11 @@ audio.addEventListener('timeupdate', () => {
   }
 });
 
-
+audio.addEventListener('paused', () => {
+  if (audio.paused && navigator.mediaSession.playbackState != "paused") {
+    audio.play();
+  }
+}
 
 // Main code
 
@@ -275,5 +279,6 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextSong()});
   } 
 }
+
 
 
