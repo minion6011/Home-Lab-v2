@@ -13,7 +13,7 @@
     <div class="search_bar">
         <p class="search_bar_title">🎵 Download a Song 🎵</p>
         <div class="search_bar_container">
-            <img src="{{ url_for('static',filename='img/lens.png') }}" class="search_bar-img">
+            <img src="{{ url_for('static',filename='img/lens.png') }}" class="search_bar-img" alt="Search Image">
             <input type="text" class="search_bar-text_input" placeholder="https://www.youtube.com/watch?v=..." onkeydown="if (event.key === 'Enter') {downloadNew(this)}">
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="musics-container" id="music-container">
         {% for song in songs_dict %}
             <div class="music-card" onclick="playSong(`{{ song }}`, `{{ songs_dict[song]['ico'] }}`)">
-                <img src="{{ songs_dict[song]['ico'] }}" class="music-ico">
+                <img src="{{ songs_dict[song]['ico'] }}" class="music-ico" alt="Song Image">
                 <p class="music-card-text">{{ song }}</p>
             </div>
         {% endfor %}
@@ -33,28 +33,28 @@
 
     <div class="music-player">
         <div style="display: flex; align-items: center;">
-            <img class="music-player_img" id="song-player-img" src="{{ url_for('static',filename='img/missing.png') }}">
+            <img class="music-player_img" id="song-player-img" src="{{ url_for('static',filename='img/missing.png') }}" alt="Preview of the Song Image">
             <p class="music-player_name" id="song-player-name">No Song Selected</p>
         </div>
 
         <div class="music-player-container">
 
             <div class="buttons-container">
-                <button disabled id="buttonDelete" style="border: none; border-radius: 7.5px;" onclick="changePlayerStatus('delete'); deleteSong()" class="button-player"><img src="{{ url_for('static',filename='img/mbin.png') }}" class="button-img"></button>
-                <button disabled id="play_button" onclick="try {audio.play()} catch(err) {}; changePlayerStatus('stop')" class="button-player"><img id="play_buttonImg" src="{{ url_for('static',filename='img/play.png') }}" class="button-img"></button>
-                <button id="buttonLoop" style="border: none; border-radius: 7.5px;" onclick="changePlayerStatus('loop')" class="button-player"><img src="{{ url_for('static',filename='img/loop.png') }}" class="button-img"></button>
+                <button title="Delete" disabled id="buttonDelete" style="border: none; border-radius: 7.5px;" onclick="changePlayerStatus('delete'); deleteSong()" class="button-player"><img src="{{ url_for('static',filename='img/mbin.png') }}" class="button-img" alt="delete song button"></button>
+                <button title="Play/Pause" disabled id="play_button" onclick="try {audio.play()} catch(err) {}; changePlayerStatus('stop')" class="button-player"><img id="play_buttonImg" src="{{ url_for('static',filename='img/play.png') }}" class="button-img" alt="play/pause button"></button>
+                <button title="Loop" id="buttonLoop" style="border: none; border-radius: 7.5px;" onclick="changePlayerStatus('loop')" class="button-player"><img src="{{ url_for('static',filename='img/loop.png') }}" class="button-img" alt="loop button"></button>
             </div>
 
             <div class="player">
                 <p class="text-time" id="timestamp-current">0:00</p>
-                <input disabled type="range" id="musicRange" value="0" min="0" step="1" max="100" oninput="rangeSong(this.value)">
+                <input disabled type="range" id="musicRange" value="0" min="0" step="1" max="100" oninput="rangeSong(this.value)" title="song duration range">
                 <p class="text-time" id="timestamp-max">0:00</p>
             </div>
 
         </div>
 
         <div class="volume-container">
-            <img onclick="changePlayerStatus('volume_mute'); audio.muted = true; volumeRange.value = 0" id="musicImg" src="{{ url_for('static',filename='img/volume.png') }}" class="button-img" style="cursor: pointer;">
+            <img onclick="changePlayerStatus('volume_mute'); audio.muted = true; volumeRange.value = 0" id="musicImg" src="{{ url_for('static',filename='img/volume.png') }}" class="button-img" style="cursor: pointer;" alt="volume unmuted/muted button">
             <input id="volumeRange" type="range" value="100" min="0" step="1" max="100" oninput="changeVolume(this)">
         </div>
         
@@ -62,4 +62,3 @@
 
     </body>
 </html>
-
