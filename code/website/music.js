@@ -176,6 +176,7 @@ function createCard(song_name, song_ico) {
   imgcard.className = "music-ico"
   imgcard.src = song_ico
   imgcard.alt = "Song Image"
+  imgcard.fetchpriority = "high"
   let pcard = document.createElement("p");
   divcard.appendChild(pcard)
   pcard.className = "music-card-text"
@@ -272,3 +273,4 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextSong()});
   } 
 }
+
