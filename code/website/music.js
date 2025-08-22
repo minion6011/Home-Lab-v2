@@ -175,6 +175,7 @@ function createCard(song_name, song_ico) {
   divcard.appendChild(imgcard)
   imgcard.className = "music-ico"
   imgcard.src = song_ico
+  imgcard.alt = "Song Image"
   let pcard = document.createElement("p");
   divcard.appendChild(pcard)
   pcard.className = "music-card-text"
