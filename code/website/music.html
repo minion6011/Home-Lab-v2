@@ -22,7 +22,7 @@
     <div class="musics-container" id="music-container">
         {% for song in songs_dict %}
             <div class="music-card" onclick="playSong(`{{ song }}`, `{{ songs_dict[song]['ico'] }}`)">
-                <img src="{{ songs_dict[song]['ico'] }}" class="music-ico" alt="Song Image" fetchpriority=high>
+                <img src="{{ songs_dict[song]['ico'] }}" class="music-ico" alt="Song Image" fetchpriority="high">
                 <p class="music-card-text">{{ song }}</p>
             </div>
         {% endfor %}
@@ -63,5 +63,6 @@
 
     </body>
 </html>
+
 
 
