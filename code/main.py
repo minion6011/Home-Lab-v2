@@ -29,6 +29,10 @@ with open("app_config.json") as f:
 def index():
 	return render_template("index.html")
 
+@app.route('/manifest.json')
+def serve_manifest():
+    return send_file('manifest.json', mimetype='application/manifest+json')
+	
 # - API
 @app.route('/stats', methods=['POST'])
 def system_stats():
