@@ -7,19 +7,6 @@
         <link rel="stylesheet" href="{{ url_for('static',filename='music.css') }}">
         <link rel="icon" type="image/png" href="{{ url_for('static',filename='img/icon.png') }}"/>
         <script src="{{ url_for('static',filename='music.js') }}" type="text/javascript" defer></script>
-
-        <link rel="manifest" href="/manifest.json">
-        <script>
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                    navigator.serviceWorker.register("/sw.js").then(function(registration) {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    }, function(err) {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
-                });
-            }
-        </script>
     </head>
     <body>
 
@@ -75,6 +62,7 @@
 
     </body>
 </html>
+
 
 
 
