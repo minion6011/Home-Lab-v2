@@ -8,8 +8,19 @@
         <link rel="icon" type="image/png" href="{{ url_for('static',filename='img/icon.png') }}"/>
         <script src="{{ url_for('static',filename='music.js') }}" type="text/javascript" defer></script>
         <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <link rel="manifest" href="/manifest.json">
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register("/sw.js").then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+                });
+            }
+        </script>
     </head>
-
     <body>
 
     <div class="search_bar">
@@ -64,6 +75,7 @@
 
     </body>
 </html>
+
 
 
 
