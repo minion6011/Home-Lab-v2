@@ -11,7 +11,8 @@
       "src": "/website/img/icon.png",
       "sizes": "64x64",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "PWA Icon"
     }
   ]
+
 }
