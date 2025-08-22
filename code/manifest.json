@@ -1,0 +1,17 @@
+{
+  "name": "Homelab Music Player",
+  "short_name": "Music Player",
+  "start_url": "/music",
+  "scope": "/music",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#100979",
+  "icons": [
+    {
+      "src": "/website/img/icon.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
