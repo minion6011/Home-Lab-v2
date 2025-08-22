@@ -87,12 +87,10 @@ function formatTime(seconds) {
 
 function changePlayerStatus(type) {
   if (type == "play") { // when paused
-    navigator.mediaSession.playbackState = "paused";
     playButton.setAttribute("onClick", "try {audio.play()} catch(err) {}; changePlayerStatus('stop')")
     playButtonImg.src = "/website/img/play.png"
   }
   else if (type == "stop") { // when playing
-    navigator.mediaSession.playbackState = "playing";
     playButton.setAttribute("onClick", "try {audio.pause()} catch(err) {}; changePlayerStatus('play')")
     playButtonImg.src = "/website/img/stop.png"
   }
@@ -136,12 +134,6 @@ audio.addEventListener('timeupdate', () => {
     }
   }
 });
-
-audio.addEventListener('paused', () => {
-  if (audio.paused && navigator.mediaSession.playbackState != "paused") {
-    audio.play();
-  }
-}
 
 // Main code
 
@@ -279,6 +271,3 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextSong()});
   } 
 }
-
-
-
