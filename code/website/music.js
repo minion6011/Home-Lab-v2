@@ -135,6 +135,35 @@ audio.addEventListener('timeupdate', () => {
   }
 });
 
+let videoElementExist = false
+function playVideoBackground(blob) {
+  let video
+  if (videoElementExist) {
+    video = document.getElementById("video-background")
+  }
+  else {
+    // Create element
+    video = document.createElement("video");
+    video.muted = true
+    video.id = "video-background";
+    video.setAttribute('style', `position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -2; object-fit: cover;`);
+    document.body.appendChild(video);
+
+    div = document.createElement("div");
+    div.id = "video-background-div";
+    div.setAttribute('style', `position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; background-color: rgba(0, 0, 0, 0.5);`);
+    document.body.appendChild(div);
+
+    
+    videoElementExist = true;
+  }
+  try {video.src = blob} catch(err) {}
+  video.muted = true
+  video.loop = true
+  video.autoplay = true
+}
+
+
 // Main code
 
 async function downloadNew(element) {
@@ -192,6 +221,7 @@ async function rangeSong(new_value) {
   if (audio.currentTime > 0) {
     audio.currentTime = new_value
     timestamp_current.innerHTML = formatTime(audio.currentTime)
+    document.getElementById("video-background").currentTime = audio.currentTime
   }
 }
 
@@ -223,6 +253,8 @@ async function playSong(title, img) {
   if (title in reuseDict) {
     audio.src = reuseDict[title]
     playAudio(title, img)
+    playVideoBackground(reuseDict[title])
+    playVideoBackground(audio.src)
   }
   else {
     let req = await fetch(`/music_api`, {
@@ -237,6 +269,8 @@ async function playSong(title, img) {
       audio.src = url_blob
       reuseDict[title] = url_blob
       playAudio(title, img)
+      playVideoBackground(url_blob)
+      playVideoBackground(audio.src)
     }
   }
 }
@@ -254,6 +288,8 @@ function updatePositionState() {
     });
   }
 }
+
+
 
 async function setPWA(title, audio, img) {
   if ('mediaSession' in navigator) {
@@ -273,4 +309,3 @@ async function setPWA(title, audio, img) {
       navigator.mediaSession.setActionHandler('nexttrack', () => {nextSong()});
   } 
 }
-
