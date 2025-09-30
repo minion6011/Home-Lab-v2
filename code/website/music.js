@@ -1,4 +1,6 @@
 // Code
+let videoBackground = true; // Enable/Disable video background
+
 const range = document.getElementById('musicRange');
 
 const playButton = document.getElementById("play_button");
@@ -137,6 +139,7 @@ audio.addEventListener('timeupdate', () => {
 
 let videoElementExist = false
 function playVideoBackground(blob) {
+  if (!videoBackground) {return}
   let video
   if (videoElementExist) {
     video = document.getElementById("video-background")
@@ -221,7 +224,7 @@ async function rangeSong(new_value) {
   if (audio.currentTime > 0) {
     audio.currentTime = new_value
     timestamp_current.innerHTML = formatTime(audio.currentTime)
-    document.getElementById("video-background").currentTime = audio.currentTime
+    if (document.getElementById("video-background")) {document.getElementById("video-background").currentTime = audio.currentTime}
   }
 }
 
