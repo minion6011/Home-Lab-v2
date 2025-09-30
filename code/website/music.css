@@ -1,5 +1,5 @@
 :root {
-    --background_gradient: linear-gradient(90deg,rgba(136, 35, 219, 1) 0%, rgba(16, 9, 121, 1) 55%, rgba(255, 0, 98, 1) 100%);
+    --background_gradient: linear-gradient(90deg, rgb(68 57 165) 0%, rgba(16, 9, 121, 1) 55%, rgb(160 0 255) 100%);
     --background_color: #8823db;
 
     --element1_color: #ffffffc9;
@@ -304,3 +304,4 @@ body {
     transform: scale(1.2);
     cursor: grabbing;
 }
+
